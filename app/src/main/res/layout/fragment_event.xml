@@ -62,20 +62,56 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="32dp"
         android:layout_marginBottom="48dp"
-        android:text="Pick Date"
+        android:text="Pick Date and Time"
         android:textColor="#333333"
         android:textSize="24sp" />
 
-    <Button
-        android:id="@+id/pickDateBtn"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/pickDateBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="0dp"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp"
+            android:text="Date"
+            android:textColor="#ffffff" />
+
+        <Button
+            android:id="@+id/pickTimeBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="16dp"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp"
+            android:text="Time"
+            android:textColor="#ffffff" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/selectedDateTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="0dp"
-        android:paddingStart="24dp"
-        android:paddingEnd="24dp"
-        android:text="Date"
-        android:textColor="#ffffff" />
+        android:layout_marginTop="16dp"
+        android:textColor="#000000"
+        android:textSize="18sp" />
+    <TextView
+        android:id="@+id/selectedTimeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="16dp"
+        android:textColor="#000000"
+        android:textSize="18sp" />
 
     <Button
         android:id="@+id/eventBtn"
@@ -87,4 +123,5 @@
         android:paddingEnd="24dp"
         android:text="Create"
         android:textColor="#ffffff" />
+
 </LinearLayout>
