@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Gerlach"
+        android:id="@+id/menu_gerlach"
+        android:icon="@drawable/baseline_meeting_room_24"
+/>
+    <item android:title="Rysy"
+        android:id="@+id/menu_rysy"
+        android:icon="@drawable/baseline_meeting_room_24"
+/>
+    <item android:title="Kriváň"
+        android:id="@+id/menu_krivan"
+        android:icon="@drawable/baseline_meeting_room_24"
+/>
+</menu>
