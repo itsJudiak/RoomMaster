@@ -6,7 +6,11 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Krivan Fragment"
+        android:text="Krivan Calendar"
         android:textSize="24sp" />
 
+    <CalendarView
+        android:id="@+id/calendar_krivan"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </LinearLayout>

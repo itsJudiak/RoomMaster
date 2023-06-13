@@ -1,11 +1,14 @@
 package com.example.database
 
+import android.R
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.Button
+import android.widget.Spinner
 import android.widget.Toast
 import com.example.database.databinding.FragmentEventBinding
 import com.google.android.material.textfield.TextInputEditText
@@ -25,7 +28,7 @@ private const val ARG_PARAM2 = "param2"
 class Event : Fragment() {
     private lateinit var binding: FragmentEventBinding
     private lateinit var database: DatabaseReference
-
+    private lateinit var spinner: Spinner
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -37,6 +40,12 @@ class Event : Fragment() {
         // Initialize the Firebase database reference
         database = FirebaseDatabase.getInstance().reference
 
+        spinner = binding.spinnerRoom
+        val timeOptions = listOf("Gerlach", "Rysy", "Kriváň")
+        val adapter = ArrayAdapter(requireContext(), R.layout.simple_spinner_item, timeOptions)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinner.adapter = adapter
+
         binding.eventBtn.setOnClickListener {
             createEvent()
         }
@@ -47,18 +56,16 @@ class Event : Fragment() {
     private fun createEvent() {
         val title = binding.editTextTitle.text.toString()
         val description = binding.editTextDescription.text.toString()
-        val time = binding.editTextTime.text.toString()
-
-        val event = DataEvent(title, description, time)
+        val room = spinner.selectedItem as String
+        val event = DataEvent(title, description, room)
         val eventKey = database.push().key
 
-        // Add the event data to the "events" node using the generated key
+
         if (eventKey != null) {
             database.child(eventKey).setValue(event)
                 .addOnSuccessListener {
                     binding.editTextTitle.text?.clear()
                     binding.editTextDescription.text?.clear()
-                    binding.editTextTime.text?.clear()
                 }
                 .addOnFailureListener {
 
