@@ -90,22 +90,21 @@ class Event : Fragment() {
     }
 
     private fun createEvent() {
-        val title = binding.editTextTitle.text.toString()
-        val description = binding.editTextDescription.text.toString()
+        val title = binding.editTextTitle.text.toString().trim()
+        val description = binding.editTextDescription.text.toString().trim()
         val room = spinner.selectedItem as String
-        val event = DataEvent(title, description, room, selectedDate, selectedTime)
-        val eventKey = database.push().key
 
-        if (title.isEmpty() || description.isEmpty() || selectedDate.isEmpty() || selectedTime.isEmpty()) {
+        if (title.isEmpty() || description.isEmpty() || selectedDate.isNullOrEmpty() || selectedTime.isNullOrEmpty()) {
             Toast.makeText(requireContext(), "Please fill in all the fields", Toast.LENGTH_SHORT).show()
             return
         }
 
+        val event = DataEvent(title, description, room, selectedDate!!, selectedTime!!)
+        val eventKey = database.push().key
+
         if (eventKey != null) {
             database.child(eventKey).setValue(event)
                 .addOnSuccessListener {
-                    binding.editTextTitle.text?.clear()
-                    binding.editTextDescription.text?.clear()
                     binding.editTextTitle.text?.clear()
                     binding.editTextDescription.text?.clear()
                     selectedDateText?.text = null
@@ -113,10 +112,11 @@ class Event : Fragment() {
                     Toast.makeText(requireContext(), "Event created successfully", Toast.LENGTH_SHORT).show()
                 }
                 .addOnFailureListener {
-                    Toast.makeText(requireContext(), "Failed to create Event", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "Failed to create event", Toast.LENGTH_SHORT).show()
                 }
         }
     }
+
     private fun setSpinner() {
         spinner = binding.spinnerRoom
         val timeOptions = listOf("Gerlach", "Rysy", "Kriváň")
