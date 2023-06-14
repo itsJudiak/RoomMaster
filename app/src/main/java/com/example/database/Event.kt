@@ -19,16 +19,9 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [Event.newInstance] factory method to
- * create an instance of this fragment.
- */
+/*Fragment Event slúži pre vytváranie udalosti a následne ukladanie do RealTime databazy Firebase*/
+
 class Event : Fragment() {
     private lateinit var binding: FragmentEventBinding
     private lateinit var database: DatabaseReference
@@ -63,7 +56,7 @@ class Event : Fragment() {
         }
         return view
     }
-
+    //Metoda pre zobrazenie dialogoveho okna pre vyberanie času a potom uloženie hodnoty do premennej
     private fun showTimePickerDialog() {
         val timePickerDialog = TimePickerDialog(requireContext(), TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
             val formattedHourOfDay = hourOfDay.toString().padStart(2, '0')
@@ -75,7 +68,7 @@ class Event : Fragment() {
 
         timePickerDialog.show()
     }
-
+    //Metoda pre zobrazenie dialogoveho okna pre vyberanie datumu a potom uloženie hodnoty do premennej
     private fun showDatePickerDialog() {
         val datePickerDialog = DatePickerDialog(requireContext())
         datePickerDialog.setOnDateSetListener { view, year, month, dayOfMonth ->
@@ -90,6 +83,8 @@ class Event : Fragment() {
         datePickerDialog.show()
     }
 
+    // Metoda ktorá sa volá po kliknutí na tlačitko eventBtn
+    // Ukladanie do premennych z vstupných poli, Kontrola či su polia vyplnene, Zostavenie Reťazca z datumu a času ...
     private fun createEvent() {
         val title = binding.editTextTitle.text.toString().trim()
         val description = binding.editTextDescription.text.toString().trim()
@@ -127,7 +122,7 @@ class Event : Fragment() {
                 }
         }
     }
-
+    // Priradenie hodnôt do rozbalovacieho formulara pre volbu miestnosti
     private fun setSpinner() {
         spinner = binding.spinnerRoom
         val timeOptions = listOf("Gerlach", "Rysy", "Kriváň")
@@ -136,6 +131,7 @@ class Event : Fragment() {
         spinner.adapter = adapter
     }
 
+    //Metoda ktora vrati aktualny datum a čas
     private fun getCurrentDateTime(): String {
         val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
         val currentDateTime = Calendar.getInstance().time

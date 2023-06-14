@@ -43,7 +43,7 @@ class Login : AppCompatActivity() {
             Toast.makeText(this, "Please fill in all the fields", Toast.LENGTH_SHORT).show()
             return
         }
-
+        //Voľne dostupná časť kodu z Firebase
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {

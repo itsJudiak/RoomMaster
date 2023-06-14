@@ -12,7 +12,10 @@ import com.example.database.databinding.FragmentGerlachBinding
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
-
+/* Fragmenty Gerlach, Krivan, Rysy reprezentujú miestonosti
+* Každá miestnosť má vlastný kalendár
+* Po kliknutí na dátum sa zobrazí RecyclerView ktorý uchováva Eventy pre danú miestnoť v daný dátum
+* */
 class Gerlach : BaseEventFragment() {
     override lateinit var eventRecyclerView: RecyclerView
     override lateinit var eventArrayList: ArrayList<DataEvent>

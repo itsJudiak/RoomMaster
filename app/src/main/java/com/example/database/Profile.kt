@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import com.google.firebase.auth.FirebaseAuth
 
+/* Tento fragment slúži iba na uchovávanie tlačidla ktoré odhlási aktuálne prihláseného usera a presmeruje ho do Login Activity */
 
 class Profile : Fragment() {
     override fun onCreateView(

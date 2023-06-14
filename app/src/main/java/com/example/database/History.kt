@@ -9,7 +9,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.database.databinding.FragmentHistoryBinding
 import com.google.firebase.database.*
-
+/*
+* Tento fragment obsahuje RecyclerView pre zobrazenie histórie udalostí
+* onCreateView - inicializujeme premenne a prazdny ArrayList pre udalosti
+* getUserdata - metoda ktorá načíta dáta z databázy
+* */
 class History : Fragment() {
 
     private lateinit var binding: FragmentHistoryBinding

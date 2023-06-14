@@ -12,17 +12,21 @@ import com.example.database.fragments.Krivan
 import com.example.database.databinding.FragmentHomeBinding
 import com.example.database.fragments.Gerlach
 
+/*
+* Fragment home zobrazuje domovku stranku
+* */
+
 class Home : Fragment() {
-    private var _binding: FragmentHomeBinding? = null
-    private val binding get() = _binding!!
+    private var binding: FragmentHomeBinding? = null
+
     private lateinit var fragmentManager: FragmentManager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        return binding.root
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
+        return binding!!.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -30,12 +34,12 @@ class Home : Fragment() {
 
         fragmentManager = childFragmentManager
 
-        // Initialize the first nested fragment
+        // Inicializovanie prvého fragmentu
         val initialFragment = Gerlach()
         replaceFragment(initialFragment)
 
-        // Set up the bottom navigation view
-        binding.bottomNavigationView.setOnNavigationItemSelectedListener { menuItem ->
+        // Navigation view
+        binding?.bottomNavigationView?.setOnNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.menu_gerlach -> replaceFragment(Gerlach())
                 R.id.menu_rysy -> replaceFragment(Rysy())
@@ -47,13 +51,9 @@ class Home : Fragment() {
 
     private fun replaceFragment(fragment: Fragment) {
         fragmentManager.beginTransaction()
-            .replace(binding.fragmentContainer.id, fragment)
+            .replace(binding!!.fragmentContainer.id, fragment)
             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
             .commit()
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
 }

@@ -57,13 +57,13 @@ abstract class BaseEventFragment : Fragment() {
     protected abstract fun getFragmentLayout(): Int
 
 
-
+    // Služí na ziskavanie eventov z databazy, tie uklada do arrayListu na zaklade miestnosti a vybraného dátumu
     protected fun getEventData(desiredRoom: String) {
         database = FirebaseDatabase.getInstance().reference
         database.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
-                    eventArrayList.clear() // Clear the list before filtering
+                    eventArrayList.clear()
                     for (eventSnapshot in snapshot.children) {
                         val event = eventSnapshot.getValue(DataEvent::class.java)
                         if (event?.room == desiredRoom && event?.date == selectedDate) {

@@ -5,7 +5,9 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.example.database.databinding.ActivityMainBinding
 
-
+/* MainActivity nastavigáciu v aplikácii pomocou bottom navigation view
+* Rieši selekciu medzi položkami a pomocou funkcie replaceFragment nahradí aktuálny fragment novým
+* */
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityMainBinding
