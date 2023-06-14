@@ -10,9 +10,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.database.databinding.FragmentHistoryBinding
 import com.google.firebase.database.*
 /*
-* Tento fragment obsahuje RecyclerView pre zobrazenie histórie udalostí
-* onCreateView - inicializujeme premenne a prazdny ArrayList pre udalosti
-* getUserdata - metoda ktorá načíta dáta z databázy
+* This fragment contains a RecyclerView for displaying event history.
+* onCreateView - initializes variables and an empty ArrayList for events
+* getUserData - method that retrieves data from the database
 * */
 class History : Fragment() {
 
@@ -20,6 +20,7 @@ class History : Fragment() {
     private lateinit var database: DatabaseReference
     private lateinit var eventRecyclerView: RecyclerView
     private lateinit var eventArrayList: ArrayList<DataEvent>
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -33,10 +34,12 @@ class History : Fragment() {
         eventArrayList = arrayListOf<DataEvent>()
         getUserData()
 
-
         return binding.root
     }
 
+    /**
+     * Retrieves event data from the database and populates the RecyclerView.
+     */
     private fun getUserData() {
         database = FirebaseDatabase.getInstance().reference
         database.addValueEventListener(object : ValueEventListener{
@@ -51,11 +54,8 @@ class History : Fragment() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+                // Handle the error if needed
             }
-
         })
     }
-
-
 }

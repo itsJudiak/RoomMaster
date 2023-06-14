@@ -45,8 +45,6 @@ class Rysy : BaseEventFragment() {
     }
 
     override fun getFragmentLayout(): Int {
-        TODO("Not yet implemented")
+        TODO()
     }
-
-
 }

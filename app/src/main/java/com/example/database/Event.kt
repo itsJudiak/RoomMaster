@@ -19,9 +19,9 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 
-
-/*Fragment Event slúži pre vytváranie udalosti a následne ukladanie do RealTime databazy Firebase*/
-
+/**
+ * Fragment Event is used for creating events and storing them in the Firebase Realtime Database.
+ */
 class Event : Fragment() {
     private lateinit var binding: FragmentEventBinding
     private lateinit var database: DatabaseReference
@@ -30,6 +30,14 @@ class Event : Fragment() {
     private lateinit var selectedTime: String
     private var selectedDateText: TextView? = null
     private var selectedTimeText: TextView? = null
+    private var storedTitle: String = ""
+    private var storedDescription: String = ""
+    private var storedSelectedDate: String = ""
+    private var storedSelectedTime: String = ""
+
+    /**
+     * Creates the view of the fragment.
+     */
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -42,7 +50,6 @@ class Event : Fragment() {
 
         setSpinner()
 
-
         binding.pickDateBtn.setOnClickListener {
             showDatePickerDialog()
         }
@@ -51,12 +58,43 @@ class Event : Fragment() {
         }
         selectedDateText = binding.selectedDateTextView
         selectedTimeText = binding.selectedTimeTextView
+
         binding.eventBtn.setOnClickListener {
             createEvent()
         }
+
         return view
     }
-    //Metoda pre zobrazenie dialogoveho okna pre vyberanie času a potom uloženie hodnoty do premennej
+
+    /**
+     * Restores the values of the views when the view is created.
+     */
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // Restore values if available
+        binding.editTextTitle.setText(storedTitle)
+        binding.editTextDescription.setText(storedDescription)
+        selectedDateText?.text = storedSelectedDate
+        selectedTimeText?.text = storedSelectedTime
+    }
+
+    /**
+     * Stores the values of the views before the view is destroyed.
+     */
+    override fun onDestroyView() {
+        super.onDestroyView()
+
+        // Store values before view is destroyed
+        storedTitle = binding.editTextTitle.text.toString()
+        storedDescription = binding.editTextDescription.text.toString()
+        storedSelectedDate = selectedDateText?.text.toString()
+        storedSelectedTime = selectedTimeText?.text.toString()
+    }
+
+    /**
+     * Shows a time picker dialog to select the time and stores the selected time.
+     */
     private fun showTimePickerDialog() {
         val timePickerDialog = TimePickerDialog(requireContext(), TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
             val formattedHourOfDay = hourOfDay.toString().padStart(2, '0')
@@ -68,7 +106,10 @@ class Event : Fragment() {
 
         timePickerDialog.show()
     }
-    //Metoda pre zobrazenie dialogoveho okna pre vyberanie datumu a potom uloženie hodnoty do premennej
+
+    /**
+     * Shows a date picker dialog to select the date and stores the selected date.
+     */
     private fun showDatePickerDialog() {
         val datePickerDialog = DatePickerDialog(requireContext())
         datePickerDialog.setOnDateSetListener { view, year, month, dayOfMonth ->
@@ -83,8 +124,10 @@ class Event : Fragment() {
         datePickerDialog.show()
     }
 
-    // Metoda ktorá sa volá po kliknutí na tlačitko eventBtn
-    // Ukladanie do premennych z vstupných poli, Kontrola či su polia vyplnene, Zostavenie Reťazca z datumu a času ...
+    /**
+     * Creates the event based on the input fields.
+     * Checks if all fields are filled, validates the selected date and time, and saves the event to the database.
+     */
     private fun createEvent() {
         val title = binding.editTextTitle.text.toString().trim()
         val description = binding.editTextDescription.text.toString().trim()
@@ -94,6 +137,7 @@ class Event : Fragment() {
             Toast.makeText(requireContext(), "Please fill in all the fields", Toast.LENGTH_SHORT).show()
             return
         }
+
         val selectedDateTime = "$selectedDate $selectedTime"
         val currentDate = getCurrentDateTime()
 
@@ -122,21 +166,24 @@ class Event : Fragment() {
                 }
         }
     }
-    // Priradenie hodnôt do rozbalovacieho formulara pre volbu miestnosti
+
+    /**
+     * Sets the values for the room selection spinner.
+     */
     private fun setSpinner() {
         spinner = binding.spinnerRoom
-        val timeOptions = listOf("Gerlach", "Rysy", "Kriváň")
-        val adapter = ArrayAdapter(requireContext(), R.layout.simple_spinner_item, timeOptions)
+        val roomOptions = listOf("Gerlach", "Rysy", "Kriváň")
+        val adapter = ArrayAdapter(requireContext(), R.layout.simple_spinner_item, roomOptions)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinner.adapter = adapter
     }
 
-    //Metoda ktora vrati aktualny datum a čas
+    /**
+     * Returns the current date and time as a formatted string.
+     */
     private fun getCurrentDateTime(): String {
         val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
         val currentDateTime = Calendar.getInstance().time
         return dateFormat.format(currentDateTime)
     }
-
-
 }
