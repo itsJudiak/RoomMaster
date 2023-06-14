@@ -107,21 +107,14 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/selectedDateTextView"
+                android:id="@+id/selectedDateTimeTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="16dp"
                 android:textColor="#000000"
                 android:textSize="18sp" />
-            <TextView
-                android:id="@+id/selectedTimeTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="16dp"
-                android:textColor="#000000"
-                android:textSize="18sp" />
+            
 
             <Button
                 android:id="@+id/eventBtn"
@@ -137,14 +130,6 @@
         </LinearLayout>
     </ScrollView>
 
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:orientation="vertical">
-
-        <!-- Add any landscape-specific views or layout here -->
-
-    </LinearLayout>
+    
 
 </LinearLayout>

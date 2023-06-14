@@ -2,7 +2,6 @@ package com.example.database
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
@@ -11,9 +10,9 @@ import com.example.database.databinding.ActivityLoginBinding
 class Login : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
-    private lateinit var binding : ActivityLoginBinding
+    private lateinit var binding: ActivityLoginBinding
 
-    public override fun onStart() {
+    override fun onStart() {
         super.onStart()
         // Check if user is signed in (non-null) and update UI accordingly.
         val currentUser = auth.currentUser
@@ -30,11 +29,11 @@ class Login : AppCompatActivity() {
         setContentView(binding.root)
         auth = FirebaseAuth.getInstance()
 
-
         binding.btnLogin.setOnClickListener {
             loginUser()
         }
     }
+
     private fun loginUser() {
         val email = binding.editTextEmail.text.toString().trim()
         val password = binding.editTextPassword.text.toString().trim()
@@ -43,7 +42,8 @@ class Login : AppCompatActivity() {
             Toast.makeText(this, "Please fill in all the fields", Toast.LENGTH_SHORT).show()
             return
         }
-        //Voľne dostupná časť kodu z Firebase
+
+        // Authenticate user with Firebase
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
@@ -52,10 +52,8 @@ class Login : AppCompatActivity() {
                     startActivity(intent)
                     finish()
                 } else {
-                    Toast.makeText(this, "Wrong data", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Wrong email or password", Toast.LENGTH_SHORT).show()
                 }
             }
     }
-
 }
-
