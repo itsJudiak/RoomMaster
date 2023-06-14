@@ -2,20 +2,14 @@ package com.example.database
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContentProviderCompat.requireContext
 import com.google.firebase.auth.FirebaseAuth
 import com.example.database.databinding.ActivityLoginBinding
-import com.google.firebase.auth.FirebaseUser
 
 class Login : AppCompatActivity() {
 
-    private lateinit var editTextEmail: EditText
-    private lateinit var editTextPassword: EditText
     private lateinit var auth: FirebaseAuth
     private lateinit var binding : ActivityLoginBinding
 
