@@ -7,10 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
-import com.example.database.fragments.Gerlach
 import com.example.database.fragments.Rysy
 import com.example.database.fragments.Krivan
 import com.example.database.databinding.FragmentHomeBinding
+import com.example.database.fragments.Gerlach
 
 class Home : Fragment() {
     private var _binding: FragmentHomeBinding? = null
