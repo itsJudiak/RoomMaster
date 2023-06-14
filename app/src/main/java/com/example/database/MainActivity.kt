@@ -20,6 +20,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.home -> replaceFragment(Home())
                 R.id.history -> replaceFragment(History())
                 R.id.event -> replaceFragment(Event())
+                R.id.profile -> replaceFragment(Profile())
                 else -> {
                 }
             }

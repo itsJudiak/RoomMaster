@@ -15,6 +15,9 @@ import android.widget.Toast
 import com.example.database.databinding.FragmentEventBinding
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -96,6 +99,16 @@ class Event : Fragment() {
             Toast.makeText(requireContext(), "Please fill in all the fields", Toast.LENGTH_SHORT).show()
             return
         }
+        val selectedDateTime = "$selectedDate $selectedTime"
+        val currentDate = getCurrentDateTime()
+
+        val eventDateTime = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault()).parse(selectedDateTime)
+        val currentDateTime = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault()).parse(currentDate)
+
+        if (eventDateTime == null || currentDateTime == null || eventDateTime.before(currentDateTime)) {
+            Toast.makeText(requireContext(), "Please select a valid date and time", Toast.LENGTH_SHORT).show()
+            return
+        }
 
         val event = DataEvent(title, description, room, selectedDate!!, selectedTime!!)
         val eventKey = database.push().key
@@ -121,6 +134,12 @@ class Event : Fragment() {
         val adapter = ArrayAdapter(requireContext(), R.layout.simple_spinner_item, timeOptions)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinner.adapter = adapter
+    }
+
+    private fun getCurrentDateTime(): String {
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.getDefault())
+        val currentDateTime = Calendar.getInstance().time
+        return dateFormat.format(currentDateTime)
     }
 
 
